@@ -577,7 +577,6 @@ table.cal tr:hover .del-habit { opacity: 1; }
     <div class="topbar" id="topbar">
       <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
       <div id="topbarLeft" style="display:flex;align-items:center;gap:8px;flex:1">
-        <span class="page-title" id="pageTitle">Loading…</span>
       </div>
       <div class="topbar-actions" id="topbarActions"></div>
     </div>
@@ -733,15 +732,14 @@ function navigateTo(view) {
   S.currentView = view;
   renderSidebar();
 
-  const titleEl   = document.getElementById('pageTitle');
   const actionsEl = document.getElementById('topbarActions');
   const topLeft   = document.getElementById('topbarLeft');
 
+  if (!actionsEl || !topLeft) return; // guard: DOM not ready
   actionsEl.innerHTML = '';
   topLeft.innerHTML   = '';
 
   if (view === 'home') {
-    titleEl.textContent = '';
     topLeft.innerHTML = `<span class="page-title">My Year &nbsp;<span style="font-size:.9rem;color:var(--ink3);font-family:var(--font-sans)">${S.currentYear}</span></span>`;
     renderHome();
 
