@@ -296,27 +296,24 @@ async function inviteUser() {
   const btn = document.getElementById('inviteBtn');
   btn.disabled = true; btn.textContent = 'Sending…';
 
-  // Use Supabase admin invite — this sends a magic-link invite email
-  const { data, error } = await sb.auth.admin.inviteUserByEmail(email, {
-    data: { display_name: name || email.split('@')[0], role: 'member' },
-    redirectTo: 'https://master-manok.github.io/habit_flow/app.html'
+  const { error } = await sb.auth.signInWithOtp({
+    email,
+    options: {
+      emailRedirectTo: 'https://master-manok.github.io/habit_flow/app.html',
+      data: { display_name: name || email.split('@')[0] }
+    }
   });
 
   btn.disabled = false; btn.textContent = 'Send invite';
 
   if (error) {
-    // Fallback: signInWithOtp works for non-admin API keys too
-    const { error: otpErr } = await sb.auth.signInWithOtp({
-      email,
-      options: { emailRedirectTo: 'https://master-manok.github.io/habit_flow/app.html', data: { display_name: name } }
-    });
-    if (otpErr) { showInviteAlert(otpErr.message, 'error'); return; }
+    showInviteAlert(error.message, 'error');
+  } else {
+    document.getElementById('inviteName').value  = '';
+    document.getElementById('inviteEmail').value = '';
+    showInviteAlert(`Invite sent to ${email}!`, 'success');
+    showToast('Invitation sent ✓');
   }
-
-  document.getElementById('inviteName').value  = '';
-  document.getElementById('inviteEmail').value = '';
-  showInviteAlert(`Invite sent to ${email}!`, 'success');
-  showToast('Invitation sent ✓');
 }
 
 async function changeRole(userId, newRole) {
