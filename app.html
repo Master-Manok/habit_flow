@@ -44,7 +44,6 @@ html, body { height: 100%; background: var(--cream); font-family: var(--font-san
   display: flex; flex-direction: column;
   position: fixed; top: 0; left: 0; bottom: 0;
   z-index: 10;
-  padding: 0;
   transition: transform .25s;
 }
 
@@ -53,7 +52,6 @@ html, body { height: 100%; background: var(--cream); font-family: var(--font-san
   padding: 1.5rem 1.25rem;
   border-bottom: 1px solid rgba(255,255,255,.08);
   font-size: .95rem; font-weight: 500;
-  letter-spacing: -.01em;
   color: #fff;
 }
 
@@ -82,7 +80,6 @@ html, body { height: 100%; background: var(--cream); font-family: var(--font-san
   transition: background .15s;
   font-size: .88rem;
   color: rgba(255,255,255,.7);
-  border-radius: 0;
   position: relative;
 }
 
@@ -95,55 +92,71 @@ html, body { height: 100%; background: var(--cream); font-family: var(--font-san
 
 .nav-item.active::before {
   content: '';
-  position: absolute;
-  left: 0; top: 20%; bottom: 20%;
-  width: 3px;
-  background: var(--accent);
+  position: absolute; left: 0; top: 20%; bottom: 20%;
+  width: 3px; background: var(--accent);
   border-radius: 0 3px 3px 0;
 }
 
 .nav-avatar {
-  width: 26px; height: 26px;
-  border-radius: 50%;
+  width: 26px; height: 26px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-size: 10px; font-weight: 500;
-  flex-shrink: 0;
+  font-size: 10px; font-weight: 500; flex-shrink: 0;
+}
+
+.own-badge {
+  font-size: .65rem; padding: 2px 6px;
+  background: rgba(43,92,230,.25); color: #9db8ff;
+  border-radius: 4px; margin-left: auto;
 }
 
 .sidebar-bottom {
   padding: 1rem 1.25rem;
   border-top: 1px solid rgba(255,255,255,.08);
-  font-size: .78rem;
+}
+
+.sidebar-user-row {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: .75rem;
 }
 
 .sidebar-user-info {
-  display: flex; align-items: center; gap: 8px;
-  margin-bottom: .75rem;
-  color: rgba(255,255,255,.6);
+  flex: 1; overflow: hidden;
 }
 
-.sidebar-links { display: flex; flex-direction: column; gap: 6px; }
+.sidebar-user-name {
+  font-size: .82rem; color: #fff;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.sidebar-user-role {
+  font-size: .7rem; color: rgba(255,255,255,.4);
+}
+
+.edit-name-btn {
+  background: none; border: none; cursor: pointer;
+  color: rgba(255,255,255,.3); font-size: .85rem;
+  padding: 2px 4px; transition: color .15s;
+  flex-shrink: 0;
+}
+.edit-name-btn:hover { color: rgba(255,255,255,.8); }
+
+.sidebar-links { display: flex; flex-direction: column; gap: 4px; }
 
 .sidebar-link {
   display: flex; align-items: center; gap: 6px;
-  padding: 6px 8px;
-  border-radius: 6px;
-  cursor: pointer;
-  color: rgba(255,255,255,.5);
-  font-size: .8rem;
-  text-decoration: none;
+  padding: 6px 8px; border-radius: 6px;
+  cursor: pointer; color: rgba(255,255,255,.5);
+  font-size: .8rem; text-decoration: none;
   transition: all .15s;
   background: none; border: none; font-family: var(--font-sans);
   width: 100%; text-align: left;
 }
-
 .sidebar-link:hover { color: #fff; background: rgba(255,255,255,.08); }
 
-/* ── MAIN CONTENT ── */
+/* ── MAIN ── */
 .main {
   margin-left: var(--sidebar);
-  flex: 1;
-  display: flex; flex-direction: column;
+  flex: 1; display: flex; flex-direction: column;
   min-height: 100vh;
 }
 
@@ -154,62 +167,160 @@ html, body { height: 100%; background: var(--cream); font-family: var(--font-san
   border-bottom: 1px solid var(--border);
   display: flex; align-items: center; gap: 1rem;
   padding: .75rem 2rem;
+  min-height: 54px;
 }
 
 .page-title {
   font-family: var(--font-serif);
-  font-size: 1.25rem;
-  color: var(--ink);
+  font-size: 1.25rem; color: var(--ink);
 }
+
+.topbar-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+
+.breadcrumb {
+  display: flex; align-items: center; gap: 6px;
+  font-size: .82rem; color: var(--ink3);
+}
+
+.breadcrumb-sep { opacity: .4; }
+
+.breadcrumb-link {
+  cursor: pointer; color: var(--accent);
+  text-decoration: none;
+}
+.breadcrumb-link:hover { text-decoration: underline; }
 
 .month-nav {
   display: flex; align-items: center; gap: 6px;
-  margin-left: auto;
 }
 
 .month-nav button {
-  width: 30px; height: 30px;
-  border-radius: 7px;
-  border: 1px solid var(--border);
-  background: var(--card);
-  cursor: pointer;
-  font-size: 1rem;
-  color: var(--ink2);
+  width: 30px; height: 30px; border-radius: 7px;
+  border: 1px solid var(--border); background: var(--card);
+  cursor: pointer; font-size: 1rem; color: var(--ink2);
   display: flex; align-items: center; justify-content: center;
   transition: background .15s;
 }
-
 .month-nav button:hover { background: var(--mist); }
 
 .month-label {
   font-size: .88rem; font-weight: 500;
-  min-width: 130px; text-align: center;
-  color: var(--ink);
+  min-width: 130px; text-align: center; color: var(--ink);
 }
 
 .content { padding: 1.5rem 2rem 3rem; }
 
+/* ── YEARLY CALENDAR ── */
+.year-header {
+  display: flex; align-items: baseline; gap: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.year-title {
+  font-family: var(--font-serif);
+  font-size: 1.6rem; color: var(--ink);
+}
+
+.year-sub { font-size: .85rem; color: var(--ink3); }
+
+.year-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+}
+
+.month-card {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.2rem;
+  cursor: pointer;
+  transition: border-color .2s, box-shadow .2s, transform .15s;
+  position: relative;
+  overflow: hidden;
+}
+
+.month-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 4px 20px rgba(43,92,230,.12);
+  transform: translateY(-2px);
+}
+
+.month-card.current-month {
+  border-color: var(--accent);
+  background: linear-gradient(135deg, #fff 0%, #f0f5ff 100%);
+}
+
+.month-card.future {
+  opacity: .5; cursor: default;
+}
+.month-card.future:hover {
+  border-color: var(--border);
+  box-shadow: none; transform: none;
+}
+
+.month-card-name {
+  font-size: .78rem; font-weight: 500;
+  text-transform: uppercase; letter-spacing: .06em;
+  color: var(--ink3); margin-bottom: .5rem;
+}
+
+.month-card.current-month .month-card-name { color: var(--accent); }
+
+.month-card-count {
+  font-family: var(--font-serif);
+  font-size: 1.8rem; color: var(--ink);
+  line-height: 1; margin-bottom: .4rem;
+}
+
+.month-card-pct {
+  font-size: .78rem; color: var(--ink3);
+  margin-bottom: .6rem;
+}
+
+.month-progress-track {
+  height: 5px; background: var(--mist);
+  border-radius: 3px; overflow: hidden;
+}
+
+.month-progress-fill {
+  height: 100%; border-radius: 3px;
+  background: var(--accent);
+  transition: width .4s ease;
+}
+
+.month-card.current-month .month-progress-fill { background: var(--accent); }
+
+.month-card-badge {
+  position: absolute; top: 10px; right: 10px;
+  font-size: .65rem; padding: 2px 7px;
+  background: var(--accent); color: #fff;
+  border-radius: 20px; font-weight: 500;
+}
+
 /* ── HABIT TABLE ── */
 .habits-toolbar {
   display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 1rem;
+  margin-bottom: 1rem; flex-wrap: wrap; gap: 8px;
 }
 
 .habits-toolbar-left { font-size: .82rem; color: var(--ink3); }
 
 .btn-add-habit {
   display: flex; align-items: center; gap: 5px;
-  padding: 7px 14px;
-  background: var(--accent);
-  color: #fff;
+  padding: 7px 14px; background: var(--accent); color: #fff;
   border: none; border-radius: 8px;
   font-size: .82rem; font-weight: 500; font-family: var(--font-sans);
-  cursor: pointer;
-  transition: opacity .15s;
+  cursor: pointer; transition: opacity .15s;
 }
 .btn-add-habit:hover { opacity: .88; }
 
-.calendar-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border); background: var(--card); }
+.calendar-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--card);
+}
 
 table.cal { border-collapse: collapse; width: 100%; min-width: 560px; }
 
@@ -218,7 +329,6 @@ table.cal th, table.cal td {
   border-bottom: 1px solid var(--border);
   font-size: 11px; text-align: center; padding: 0;
 }
-
 table.cal th:last-child, table.cal td:last-child { border-right: none; }
 
 table.cal th.habit-col {
@@ -231,72 +341,52 @@ table.cal th.habit-col {
 table.cal th.day-th {
   min-width: 24px; width: 24px; padding: 4px 0;
   color: var(--ink3); background: var(--mist);
-  border-bottom: 2px solid var(--border);
-  font-weight: 400;
+  border-bottom: 2px solid var(--border); font-weight: 400;
 }
-
 table.cal th.day-th.weekend { background: var(--wknd-bg); color: var(--accent); }
 
 table.cal .dow-row th {
   font-size: 9px; font-style: italic;
   color: var(--ink3); height: 16px;
-  background: var(--mist);
-  border-bottom: 2px solid var(--border);
+  background: var(--mist); border-bottom: 2px solid var(--border);
 }
 
 table.cal th.summary-th {
   min-width: 42px; padding: 4px 6px;
   font-size: 10px; color: var(--ink3);
-  background: var(--mist);
-  border-bottom: 2px solid var(--border);
+  background: var(--mist); border-bottom: 2px solid var(--border);
 }
 
 table.cal td.habit-label {
   text-align: left; padding: 5px 12px;
   font-size: 12px; font-weight: 500;
   color: var(--ink); background: var(--mist);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  max-width: 160px;
-}
-
-table.cal td.habit-label.editing { padding: 0; }
-
-table.cal td.habit-label input {
-  width: 100%; padding: 5px 12px;
-  border: none; outline: none;
-  font: 500 12px var(--font-sans);
-  background: #fff; color: var(--ink);
+  white-space: nowrap; overflow: hidden;
+  text-overflow: ellipsis; max-width: 160px;
 }
 
 table.cal td.day-cell {
-  height: 28px; width: 24px;
-  cursor: pointer;
-  transition: background .08s;
+  height: 28px; width: 24px; cursor: pointer;
+  transition: background .08s; user-select: none;
 }
-
-table.cal td.day-cell:hover { background: #dce9ff !important; }
-table.cal td.day-cell.done { background: var(--done-bg); }
-table.cal td.day-cell.skip { background: var(--skip-bg); }
+table.cal td.day-cell:hover { filter: brightness(.93); }
+table.cal td.day-cell.done  { background: var(--done-bg); }
+table.cal td.day-cell.skip  { background: var(--skip-bg); }
 table.cal td.day-cell.weekend:not(.done):not(.skip) { background: var(--wknd-bg); }
+table.cal td.day-cell.inactive { background: var(--mist); cursor: default; opacity: .4; }
 
 table.cal td.day-cell span { font-size: 12px; pointer-events: none; color: var(--accent); }
 table.cal td.day-cell.skip span { color: #dc2626; }
 
-table.cal td.empty-cell { background: var(--mist); }
-
 table.cal td.summary-cell {
   font-size: 11px; font-weight: 500;
-  color: var(--ink2); background: var(--mist);
-  padding: 2px 6px;
+  color: var(--ink2); background: var(--mist); padding: 2px 6px;
 }
 
-.del-habit {
-  font-size: 10px; opacity: 0; margin-left: 5px;
-  color: var(--danger); cursor: pointer;
-}
+.del-habit { font-size: 10px; opacity: 0; margin-left: 5px; color: var(--danger); cursor: pointer; }
 table.cal tr:hover .del-habit { opacity: 1; }
 
-/* ── SUMMARY TAB ── */
+/* ── SUMMARY / LEADERBOARD ── */
 .summary-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -304,105 +394,77 @@ table.cal tr:hover .del-habit { opacity: 1; }
 }
 
 .metric-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.2rem;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.2rem;
 }
-
 .metric-card .mlabel { font-size: .72rem; text-transform: uppercase; letter-spacing: .06em; color: var(--ink3); margin-bottom: 6px; }
 .metric-card .mvalue { font-family: var(--font-serif); font-size: 2rem; color: var(--ink); }
 .metric-card .msub   { font-size: .75rem; color: var(--ink3); margin-top: 2px; }
 
-/* leaderboard */
 .leaderboard {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  margin-bottom: 1.5rem;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden; margin-bottom: 1.5rem;
 }
 
 .leaderboard-header {
-  padding: .9rem 1.2rem;
-  background: var(--mist);
+  padding: .9rem 1.2rem; background: var(--mist);
   border-bottom: 1px solid var(--border);
   font-size: .8rem; font-weight: 500; color: var(--ink);
-  display: flex; align-items: center; gap: 6px;
 }
 
 .lb-row {
   display: flex; align-items: center;
-  padding: .7rem 1.2rem;
-  border-bottom: 1px solid var(--border);
-  gap: 12px;
-  font-size: .85rem;
+  padding: .7rem 1.2rem; border-bottom: 1px solid var(--border);
+  gap: 12px; font-size: .85rem;
 }
 .lb-row:last-child { border-bottom: none; }
-
-.lb-rank { font-weight: 500; color: var(--ink3); min-width: 20px; font-size: .8rem; }
+.lb-rank { font-weight: 500; color: var(--ink3); min-width: 24px; font-size: .82rem; }
 .lb-name { flex: 1; font-weight: 500; }
 .lb-bar-wrap { flex: 2; height: 8px; background: var(--mist); border-radius: 4px; overflow: hidden; }
-.lb-bar { height: 100%; border-radius: 4px; }
+.lb-bar { height: 100%; border-radius: 4px; transition: width .6s ease; }
 .lb-score { font-weight: 500; color: var(--ink); min-width: 40px; text-align: right; font-size: .8rem; }
+.lb-row.is-me { background: rgba(43,92,230,.04); }
 
-/* summary table */
+.summary-table-wrap { overflow-x: auto; }
+
 .summary-table {
   width: 100%; border-collapse: collapse;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  font-size: .8rem;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden; font-size: .8rem;
 }
-
 .summary-table th {
-  background: var(--mist);
-  padding: 8px 10px; text-align: center;
-  border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  font-size: .7rem; color: var(--ink3);
-  font-weight: 500;
+  background: var(--mist); padding: 8px 10px; text-align: center;
+  border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  font-size: .7rem; color: var(--ink3); font-weight: 500;
 }
-
 .summary-table td {
   padding: 6px 10px; text-align: center;
-  border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
   color: var(--ink2);
 }
-
 .summary-table tr:last-child td { border-bottom: none; }
-
 .summary-table td.name-col { text-align: left; font-weight: 500; color: var(--ink); }
-.summary-table td.habit-col { text-align: left; color: var(--ink3); font-size: .75rem; }
+.summary-table td.habit-col-td { text-align: left; color: var(--ink3); font-size: .75rem; }
 
 .legend {
   display: flex; gap: 16px; font-size: .75rem;
   color: var(--ink3); margin-top: .75rem;
 }
 .legend-item { display: flex; align-items: center; gap: 5px; }
-.legend-swatch {
-  width: 14px; height: 14px;
-  border-radius: 3px;
-  border: 1px solid var(--border);
-}
+.legend-swatch { width: 14px; height: 14px; border-radius: 3px; border: 1px solid var(--border); }
 
 /* ── MODAL ── */
 .modal-overlay {
   position: fixed; inset: 0;
   background: rgba(0,0,0,.35);
-  display: flex; align-items: center; justify-content: center;
-  z-index: 200; display: none;
+  display: none; align-items: center; justify-content: center;
+  z-index: 200;
 }
 .modal-overlay.open { display: flex; }
 
 .modal-box {
-  background: var(--card);
-  border-radius: 16px;
-  padding: 1.5rem;
-  min-width: 300px;
-  max-width: 360px; width: 90%;
+  background: var(--card); border-radius: 16px;
+  padding: 1.5rem; min-width: 300px; max-width: 360px; width: 90%;
   box-shadow: 0 24px 60px rgba(0,0,0,.18);
   border: 1px solid var(--border);
 }
@@ -412,30 +474,25 @@ table.cal tr:hover .del-habit { opacity: 1; }
 
 .modal-box input {
   width: 100%; padding: 10px 12px;
-  border: 1.5px solid var(--border);
-  border-radius: 8px;
+  border: 1.5px solid var(--border); border-radius: 8px;
   font: 400 .9rem var(--font-sans);
   background: var(--mist); color: var(--ink);
-  outline: none; margin-bottom: 1rem;
-  transition: border-color .2s;
+  outline: none; margin-bottom: 1rem; transition: border-color .2s;
 }
 .modal-box input:focus { border-color: var(--accent); background: #fff; }
 
 .modal-btns { display: flex; gap: 8px; justify-content: flex-end; }
 
 .btn-confirm {
-  padding: 9px 18px;
-  background: var(--accent); color: #fff;
+  padding: 9px 18px; background: var(--accent); color: #fff;
   border: none; border-radius: 8px;
-  font: 500 .85rem var(--font-sans); cursor: pointer;
-  transition: opacity .15s;
+  font: 500 .85rem var(--font-sans); cursor: pointer; transition: opacity .15s;
 }
 .btn-confirm:hover { opacity: .88; }
 .btn-confirm:disabled { opacity: .5; cursor: not-allowed; }
 
 .btn-cancel {
-  padding: 9px 18px;
-  background: var(--mist); color: var(--ink2);
+  padding: 9px 18px; background: var(--mist); color: var(--ink2);
   border: 1px solid var(--border); border-radius: 8px;
   font: 400 .85rem var(--font-sans); cursor: pointer;
 }
@@ -447,36 +504,23 @@ table.cal tr:hover .del-habit { opacity: 1; }
   padding: 10px 18px; border-radius: 10px;
   font-size: .85rem; z-index: 300;
   transform: translateY(60px); opacity: 0;
-  transition: all .3s;
-  pointer-events: none;
+  transition: all .3s; pointer-events: none;
 }
 .toast.show { transform: none; opacity: 1; }
 
-/* ── LOADING ── */
+/* ── LOADER ── */
 .loader {
   display: flex; align-items: center; justify-content: center;
-  min-height: 200px; color: var(--ink3); font-size: .9rem;
-  gap: 10px;
+  min-height: 200px; color: var(--ink3); font-size: .9rem; gap: 10px;
 }
-
 .spinner {
   width: 18px; height: 18px;
-  border: 2px solid var(--border);
-  border-top-color: var(--accent);
-  border-radius: 50%;
-  animation: spin .6s linear infinite;
+  border: 2px solid var(--border); border-top-color: var(--accent);
+  border-radius: 50%; animation: spin .6s linear infinite;
 }
-
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ── MY HABITS ONLY (non-admin sees own tab only) ── */
-.own-badge {
-  font-size: .65rem; padding: 2px 6px;
-  background: rgba(43,92,230,.12); color: var(--accent);
-  border-radius: 4px; margin-left: 4px;
-}
-
-/* Responsive */
+/* ── RESPONSIVE ── */
 @media (max-width: 700px) {
   :root { --sidebar: 0px; }
   .sidebar { transform: translateX(-220px); width: 220px; }
@@ -485,16 +529,14 @@ table.cal tr:hover .del-habit { opacity: 1; }
   .topbar { padding: .75rem 1rem; }
   .content { padding: 1rem; }
   .mobile-menu-btn { display: flex !important; }
+  .year-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 .mobile-menu-btn {
-  display: none;
-  align-items: center; justify-content: center;
-  width: 34px; height: 34px;
-  border: 1px solid var(--border);
+  display: none; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border: 1px solid var(--border);
   border-radius: 7px; background: var(--card);
-  cursor: pointer; margin-right: .5rem;
-  font-size: 1rem;
+  cursor: pointer; margin-right: .5rem; font-size: 1rem;
 }
 </style>
 </head>
@@ -509,15 +551,19 @@ table.cal tr:hover .del-habit { opacity: 1; }
       HabitFlow
     </div>
 
-    <div class="sidebar-section-label">Members</div>
+    <div class="sidebar-section-label">Navigation</div>
     <nav class="user-nav" id="userNav">
       <div class="loader" style="min-height:60px"><div class="spinner"></div></div>
     </nav>
 
     <div class="sidebar-bottom">
-      <div class="sidebar-user-info">
-        <div id="sidebarAvatar" style="width:24px;height:24px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;flex-shrink:0"></div>
-        <span id="sidebarName" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></span>
+      <div class="sidebar-user-row">
+        <div id="sidebarAvatar" style="width:28px;height:28px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;flex-shrink:0"></div>
+        <div class="sidebar-user-info">
+          <div class="sidebar-user-name" id="sidebarName"></div>
+          <div class="sidebar-user-role" id="sidebarRole"></div>
+        </div>
+        <button class="edit-name-btn" onclick="openEditName()" title="Edit display name">✏️</button>
       </div>
       <div class="sidebar-links">
         <a id="adminLink" class="sidebar-link" href="admin.html" style="display:none">⚙️ Admin panel</a>
@@ -528,17 +574,15 @@ table.cal tr:hover .del-habit { opacity: 1; }
 
   <!-- ── Main ── -->
   <main class="main">
-    <div class="topbar">
+    <div class="topbar" id="topbar">
       <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
-      <span class="page-title" id="pageTitle">Loading…</span>
-      <div class="month-nav" id="monthNav" style="display:none">
-        <button onclick="changeMonth(-1)">‹</button>
-        <span class="month-label" id="monthLabel"></span>
-        <button onclick="changeMonth(1)">›</button>
+      <div id="topbarLeft" style="display:flex;align-items:center;gap:8px;flex:1">
+        <span class="page-title" id="pageTitle">Loading…</span>
       </div>
+      <div class="topbar-actions" id="topbarActions"></div>
     </div>
     <div class="content" id="content">
-      <div class="loader"><div class="spinner"></div> Loading habits…</div>
+      <div class="loader"><div class="spinner"></div> Loading…</div>
     </div>
   </main>
 </div>
@@ -559,184 +603,272 @@ table.cal tr:hover .del-habit { opacity: 1; }
 <div class="toast" id="toast"></div>
 
 <script>
-// ──────────────────────────────────────────────
-// STATE
-// ──────────────────────────────────────────────
-const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-const DOW    = ["Su","Mo","Tu","We","Th","Fr","Sa"];
+// ─────────────────────────────────────────
+// CONSTANTS
+// ─────────────────────────────────────────
+const MONTHS     = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const MONTHS_SHORT = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const DOW        = ["Su","Mo","Tu","We","Th","Fr","Sa"];
 const USER_COLORS = ["#2b5ce6","#059669","#7c3aed","#d97706","#0891b2","#dc2626","#db2777","#65a30d"];
 const USER_FILLS  = ["#dce9ff","#d1fae5","#ede9fe","#fef3c7","#e0f2fe","#fee2e2","#fce7f3","#ecfccb"];
 
-let state = {
-  currentUser: null,     // auth user
-  profile: null,         // own profile row
-  profiles: [],          // all profiles
-  habits: {},            // {userId: [{id, name, sort_order}]}
-  logs: {},              // {userId: {habitId: {date: status}}}
-  currentView: null,     // userId or '__summary__'
-  currentMonth: new Date().getMonth(),
+// ─────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────
+let S = {
+  authUser:     null,
+  profile:      null,
+  profiles:     [],
+  habits:       {},   // {userId: [{id, name, created_at}]}
+  logs:         {},   // {userId: {habitId: {dateStr: status}}}
+  currentView:  null, // 'home' | 'month:{m}' | 'summary'
   currentYear:  new Date().getFullYear(),
-  isAdmin: false,
+  isAdmin:      false,
 };
 
-// ──────────────────────────────────────────────
+// ─────────────────────────────────────────
 // INIT
-// ──────────────────────────────────────────────
+// ─────────────────────────────────────────
 async function init() {
   const { data: { session } } = await sb.auth.getSession();
   if (!session) { window.location.href = 'index.html'; return; }
-
-  state.currentUser = session.user;
-  await loadAllData();
+  S.authUser = session.user;
+  await loadAll();
 }
 
-async function loadAllData() {
-  // Load own profile
-  const { data: prof } = await sb.from('profiles').select('*').eq('id', state.currentUser.id).single();
-  state.profile = prof;
-  state.isAdmin = prof?.role === 'admin';
+async function loadAll() {
+  // Own profile
+  const { data: prof } = await sb.from('profiles').select('*').eq('id', S.authUser.id).single();
+  S.profile = prof;
+  S.isAdmin = prof?.role === 'admin';
 
-  // Show admin link if admin
-  if (state.isAdmin) document.getElementById('adminLink').style.display = '';
+  // Sidebar user info
+  updateSidebarUser();
+  if (S.isAdmin) document.getElementById('adminLink').style.display = '';
 
-  // Update sidebar user info
-  document.getElementById('sidebarName').textContent = prof?.display_name || prof?.email || 'You';
-  const av = document.getElementById('sidebarAvatar');
-  av.textContent = (prof?.display_name || 'U').slice(0,2).toUpperCase();
-  av.style.background = prof?.color || '#2b5ce6';
+  // All profiles (everyone sees all for leaderboard)
+  const { data: profiles } = await sb.from('profiles').select('*').order('created_at');
+  S.profiles = (profiles || []).map((p, i) => ({
+    ...p,
+    color: p.color || USER_COLORS[i % USER_COLORS.length],
+    fill:  p.fill  || USER_FILLS[i % USER_FILLS.length],
+  }));
 
-  // Load profiles (admin sees all, member sees own)
-  let profilesQuery = sb.from('profiles').select('*').order('created_at');
-  if (!state.isAdmin) profilesQuery = profilesQuery.eq('id', state.currentUser.id);
-  const { data: profiles } = await profilesQuery;
-  state.profiles = profiles || [];
+  // Load own habits only
+  const { data: habitsData } = await sb.from('habits').select('*')
+    .eq('user_id', S.authUser.id).order('created_at');
+  S.habits[S.authUser.id] = habitsData || [];
 
-  // Assign colors to profiles
-  state.profiles.forEach((p, i) => {
-    if (!p.color) p.color = USER_COLORS[i % USER_COLORS.length];
-    if (!p.fill)  p.fill  = USER_FILLS[i % USER_FILLS.length];
-  });
+  // Load own logs for current year
+  await loadLogs(S.authUser.id);
 
-  // Load habits for visible profiles
-  const userIds = state.profiles.map(p => p.id);
-  const { data: habitsData } = await sb.from('habits').select('*').in('user_id', userIds).order('sort_order');
-  state.habits = {};
-  (habitsData || []).forEach(h => {
-    if (!state.habits[h.user_id]) state.habits[h.user_id] = [];
-    state.habits[h.user_id].push(h);
-  });
-
-  // Load logs for current year
-  const startDate = `${state.currentYear}-01-01`;
-  const endDate   = `${state.currentYear}-12-31`;
-  const { data: logsData } = await sb.from('habit_logs').select('*').in('user_id', userIds).gte('log_date', startDate).lte('log_date', endDate);
-  state.logs = {};
-  (logsData || []).forEach(l => {
-    if (!state.logs[l.user_id]) state.logs[l.user_id] = {};
-    if (!state.logs[l.user_id][l.habit_id]) state.logs[l.user_id][l.habit_id] = {};
-    state.logs[l.user_id][l.habit_id][l.log_date] = l.status;
-  });
-
-  // Set initial view
-  const defaultView = state.isAdmin ? '__summary__' : state.currentUser.id;
-  renderSidebar();
-  switchView(state.currentView || defaultView);
-}
-
-// ──────────────────────────────────────────────
-// SIDEBAR
-// ──────────────────────────────────────────────
-function renderSidebar() {
-  const nav = document.getElementById('userNav');
-  let html = '';
-
-  if (state.isAdmin) {
-    html += `<div class="nav-item ${state.currentView === '__summary__' ? 'active' : ''}" onclick="switchView('__summary__')">
-      <span>📊</span> Summary
-    </div>`;
+  // Load all users' logs for summary/leaderboard (done count only)
+  for (const p of S.profiles) {
+    if (p.id === S.authUser.id) continue;
+    const { data: hData } = await sb.from('habits').select('*').eq('user_id', p.id).order('created_at');
+    S.habits[p.id] = hData || [];
+    await loadLogs(p.id);
   }
 
-  state.profiles.forEach((p, i) => {
-    const color = p.color || USER_COLORS[i % USER_COLORS.length];
-    const fill  = p.fill  || USER_FILLS[i % USER_FILLS.length];
-    const isActive = state.currentView === p.id;
-    const isOwn    = p.id === state.currentUser.id;
-    html += `<div class="nav-item ${isActive ? 'active' : ''}" onclick="switchView('${p.id}')">
-      <div class="nav-avatar" style="background:${fill};color:${color}">${(p.display_name || p.email).slice(0,2).toUpperCase()}</div>
-      <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${p.display_name || p.email}</span>
-      ${isOwn ? '<span class="own-badge">you</span>' : ''}
-    </div>`;
+  renderSidebar();
+  navigateTo(S.currentView || 'home');
+}
+
+async function loadLogs(userId) {
+  const y = S.currentYear;
+  const { data: logsData } = await sb.from('habit_logs').select('*')
+    .eq('user_id', userId)
+    .gte('log_date', `${y}-01-01`)
+    .lte('log_date', `${y}-12-31`);
+
+  if (!S.logs[userId]) S.logs[userId] = {};
+  (logsData || []).forEach(l => {
+    if (!S.logs[userId][l.habit_id]) S.logs[userId][l.habit_id] = {};
+    S.logs[userId][l.habit_id][l.log_date] = l.status;
   });
+}
+
+function updateSidebarUser() {
+  const p = S.profile;
+  if (!p) return;
+  document.getElementById('sidebarName').textContent = p.display_name || p.email;
+  document.getElementById('sidebarRole').textContent = p.role === 'admin' ? 'Admin' : 'Member';
+  const av = document.getElementById('sidebarAvatar');
+  av.textContent = (p.display_name || p.email || 'U').slice(0,2).toUpperCase();
+  const idx = S.profiles.findIndex(x => x.id === p.id);
+  av.style.background = USER_COLORS[idx >= 0 ? idx % USER_COLORS.length : 0];
+}
+
+// ─────────────────────────────────────────
+// SIDEBAR
+// ─────────────────────────────────────────
+function renderSidebar() {
+  const nav = document.getElementById('userNav');
+  const v = S.currentView || 'home';
+  let html = '';
+
+  html += `<div class="nav-item ${v === 'home' ? 'active' : ''}" onclick="navigateTo('home')">
+    <span style="font-size:1rem">🏠</span> My Year
+  </div>`;
+
+  html += `<div class="nav-item ${v === 'summary' ? 'active' : ''}" onclick="navigateTo('summary')">
+    <span style="font-size:1rem">🏆</span> Leaderboard
+  </div>`;
+
+  // Month sub-items visible when in month view
+  if (v.startsWith('month:')) {
+    const m = parseInt(v.split(':')[1]);
+    html += `<div class="nav-item active" style="padding-left:2rem;font-size:.82rem">
+      <span>📅</span> ${MONTHS[m]}
+    </div>`;
+  }
 
   nav.innerHTML = html;
 }
 
-// ──────────────────────────────────────────────
-// VIEWS
-// ──────────────────────────────────────────────
-function switchView(viewId) {
-  state.currentView = viewId;
+// ─────────────────────────────────────────
+// NAVIGATION
+// ─────────────────────────────────────────
+function navigateTo(view) {
+  S.currentView = view;
   renderSidebar();
 
-  const isSummary = viewId === '__summary__';
-  document.getElementById('monthNav').style.display = isSummary ? 'none' : '';
-  document.getElementById('pageTitle').textContent = isSummary ? 'Summary' :
-    (state.profiles.find(p => p.id === viewId)?.display_name || 'Habits');
+  const titleEl   = document.getElementById('pageTitle');
+  const actionsEl = document.getElementById('topbarActions');
+  const topLeft   = document.getElementById('topbarLeft');
 
-  updateMonthLabel();
+  actionsEl.innerHTML = '';
+  topLeft.innerHTML   = '';
 
-  if (isSummary) {
+  if (view === 'home') {
+    titleEl.textContent = '';
+    topLeft.innerHTML = `<span class="page-title">My Year &nbsp;<span style="font-size:.9rem;color:var(--ink3);font-family:var(--font-sans)">${S.currentYear}</span></span>`;
+    renderHome();
+
+  } else if (view.startsWith('month:')) {
+    const m = parseInt(view.split(':')[1]);
+    topLeft.innerHTML = `
+      <div class="breadcrumb">
+        <span class="breadcrumb-link" onclick="navigateTo('home')">My Year</span>
+        <span class="breadcrumb-sep">›</span>
+        <span style="color:var(--ink);font-weight:500">${MONTHS[m]} ${S.currentYear}</span>
+      </div>`;
+    actionsEl.innerHTML = `
+      <div class="month-nav">
+        <button onclick="shiftMonth(-1)">‹</button>
+        <button onclick="shiftMonth(1)">›</button>
+      </div>`;
+    renderMonthView(m);
+
+  } else if (view === 'summary') {
+    topLeft.innerHTML = `<span class="page-title">Leaderboard</span>`;
     renderSummary();
-  } else {
-    renderUserView(viewId);
   }
 }
 
-function updateMonthLabel() {
-  document.getElementById('monthLabel').textContent = `${MONTHS[state.currentMonth]} ${state.currentYear}`;
+function shiftMonth(dir) {
+  const m = parseInt(S.currentView.split(':')[1]);
+  const newM = (m + 12 + dir) % 12;
+  navigateTo(`month:${newM}`);
 }
 
-function changeMonth(dir) {
-  state.currentMonth = (state.currentMonth + 12 + dir) % 12;
-  renderUserView(state.currentView);
-  updateMonthLabel();
+// ─────────────────────────────────────────
+// HOME — YEARLY CALENDAR
+// ─────────────────────────────────────────
+function renderHome() {
+  const uid   = S.authUser.id;
+  const y     = S.currentYear;
+  const now   = new Date();
+  const curM  = now.getMonth();
+  const curY  = now.getFullYear();
+
+  // Total done for year banner
+  let yearDone = 0;
+  (S.habits[uid] || []).forEach(h => {
+    const logsByHabit = (S.logs[uid] || {})[h.id] || {};
+    yearDone += Object.values(logsByHabit).filter(v => v === 'done').length;
+  });
+
+  let html = `
+    <div class="year-header">
+      <div>
+        <div class="year-title">${S.profile?.display_name?.split(' ')[0] || 'Your'}'s ${y}</div>
+        <div class="year-sub">${yearDone} total check-ins this year · click any month to track</div>
+      </div>
+    </div>
+    <div class="year-grid">`;
+
+  for (let m = 0; m < 12; m++) {
+    const isFuture  = (y === curY && m > curM) || y > curY;
+    const isCurrent = (y === curY && m === curM);
+
+    // Compute stats for this month
+    const days = daysInMonth(m, y);
+    let done = 0, possible = 0;
+
+    (S.habits[uid] || []).forEach(h => {
+      // Only count days from habit's creation month onward
+      const habitCreated = new Date(h.created_at);
+      const habitYear    = habitCreated.getFullYear();
+      const habitMonth   = habitCreated.getMonth();
+
+      // If habit wasn't created yet in this month+year, skip
+      if (y < habitYear || (y === habitYear && m < habitMonth)) return;
+
+      // Start day: if same month as creation, start from creation day; else day 1
+      const startDay = (y === habitYear && m === habitMonth) ? habitCreated.getDate() : 1;
+      // End day: if future month use 0 possible; if current month use today
+      const endDay   = isFuture ? 0 : (isCurrent ? now.getDate() : days);
+
+      possible += Math.max(0, endDay - startDay + 1);
+
+      const logsByHabit = (S.logs[uid] || {})[h.id] || {};
+      for (let d = startDay; d <= endDay; d++) {
+        const ds = dateStr(y, m, d);
+        if (logsByHabit[ds] === 'done') done++;
+      }
+    });
+
+    const pct    = possible > 0 ? Math.round(done / possible * 100) : 0;
+    const isPast = !isFuture && !isCurrent;
+
+    html += `<div class="month-card ${isCurrent ? 'current-month' : ''} ${isFuture ? 'future' : ''}"
+      onclick="${isFuture ? '' : `navigateTo('month:${m}')`}">
+      ${isCurrent ? '<div class="month-card-badge">Now</div>' : ''}
+      <div class="month-card-name">${MONTHS[m]}</div>
+      <div class="month-card-count">${isFuture ? '—' : done}</div>
+      <div class="month-card-pct">${isFuture ? 'upcoming' : (possible === 0 ? 'no habits yet' : `${pct}% · ${done}/${possible} days`)}</div>
+      <div class="month-progress-track">
+        <div class="month-progress-fill" style="width:${isFuture ? 0 : pct}%"></div>
+      </div>
+    </div>`;
+  }
+
+  html += `</div>`;
+  document.getElementById('content').innerHTML = html;
 }
 
-function daysInMonth(m, y) {
-  return new Date(y, m + 1, 0).getDate();
-}
-
-function isWeekend(m, d, y) {
-  const dow = new Date(y, m, d).getDay();
-  return dow === 0 || dow === 6;
-}
-
-// ──────────────────────────────────────────────
-// USER VIEW
-// ──────────────────────────────────────────────
-function renderUserView(userId) {
-  const profile = state.profiles.find(p => p.id === userId);
-  if (!profile) return;
-
-  const isOwn = userId === state.currentUser.id;
-  const canEdit = isOwn || state.isAdmin;
-  const habits = state.habits[userId] || [];
-  const m = state.currentMonth;
-  const y = state.currentYear;
-  const days = daysInMonth(m, y);
+// ─────────────────────────────────────────
+// MONTH VIEW — HABIT TRACKER
+// ─────────────────────────────────────────
+function renderMonthView(m) {
+  const uid    = S.authUser.id;
+  const y      = S.currentYear;
+  const days   = daysInMonth(m, y);
+  const habits = S.habits[uid] || [];
+  const now    = new Date();
 
   let html = '';
 
   // Toolbar
   html += `<div class="habits-toolbar">
-    <div class="habits-toolbar-left">Click to mark done &nbsp;·&nbsp; Shift+click to skip</div>
-    ${canEdit ? `<button class="btn-add-habit" onclick="openAddHabit('${userId}')">+ Add habit</button>` : ''}
+    <div class="habits-toolbar-left">Click to cycle: <strong style="color:var(--accent)">done</strong> → <strong style="color:#dc2626">skip</strong> → clear</div>
+    <button class="btn-add-habit" onclick="openAddHabit()">+ Add habit</button>
   </div>`;
 
-  // Calendar
   html += `<div class="calendar-wrap"><table class="cal">`;
 
-  // Header row — day numbers
+  // Header: day numbers
   html += `<tr><th class="habit-col">Habit</th>`;
   for (let d = 1; d <= days; d++) {
     const we = isWeekend(m, d, y);
@@ -744,44 +876,58 @@ function renderUserView(userId) {
   }
   html += `<th class="summary-th">Done</th><th class="summary-th">Skip</th><th class="summary-th">%</th></tr>`;
 
-  // DOW row
+  // Header: day-of-week
   html += `<tr class="dow-row"><th class="habit-col"></th>`;
   for (let d = 1; d <= days; d++) {
     html += `<th class="day-th">${DOW[new Date(y, m, d).getDay()]}</th>`;
   }
   html += `<th class="summary-th" colspan="3"></th></tr>`;
 
-  // Habit rows
   if (habits.length === 0) {
-    html += `<tr><td class="habit-label" colspan="${days + 4}" style="text-align:center;color:var(--ink3);padding:2rem">No habits yet — add your first one!</td></tr>`;
+    html += `<tr><td class="habit-label" colspan="${days + 4}" style="text-align:center;color:var(--ink3);padding:2rem">
+      No habits yet — add your first one!
+    </td></tr>`;
   } else {
     habits.forEach(habit => {
-      const userLogs = (state.logs[userId] || {})[habit.id] || {};
-      let done = 0, skip = 0;
+      // Determine from which day this habit is active in this month
+      const created   = new Date(habit.created_at);
+      const cYear     = created.getFullYear();
+      const cMonth    = created.getMonth();
+      const cDay      = created.getDate();
+      const activeFrom = (y === cYear && m === cMonth) ? cDay : 1;
+      const isBeforeCreation = (y < cYear) || (y === cYear && m < cMonth);
 
-      html += `<tr data-habit="${habit.id}" data-user="${userId}">`;
+      const logsByHabit = (S.logs[uid] || {})[habit.id] || {};
+      let done = 0, skip = 0, possible = 0;
 
-      // Habit label
-      html += `<td class="habit-label">${escHtml(habit.name)}`;
-      if (canEdit) html += `<span class="del-habit" onclick="deleteHabit('${userId}','${habit.id}')" title="Remove habit">✕</span>`;
-      html += `</td>`;
+      html += `<tr>`;
+      html += `<td class="habit-label">${escHtml(habit.name)}<span class="del-habit" onclick="deleteHabit('${habit.id}')" title="Remove">✕</span></td>`;
 
-      // Day cells
       for (let d = 1; d <= days; d++) {
-        const dateStr = `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-        const status  = userLogs[dateStr];
-        const we      = isWeekend(m, d, y);
+        const ds  = dateStr(y, m, d);
+        const we  = isWeekend(m, d, y);
+        const inactive = isBeforeCreation || d < activeFrom;
+
+        if (inactive) {
+          html += `<td class="day-cell inactive"><span></span></td>`;
+          continue;
+        }
+
+        possible++;
+        const status = logsByHabit[ds];
+        if (status === 'done') done++;
+        if (status === 'skip') skip++;
+
         let cls = 'day-cell';
-        if (status === 'done') { cls += ' done'; done++; }
-        else if (status === 'skip') { cls += ' skip'; skip++; }
-        else if (we) cls += ' weekend';
+        if (status === 'done')      cls += ' done';
+        else if (status === 'skip') cls += ' skip';
+        else if (we)                cls += ' weekend';
+
         const sym = status === 'done' ? '✓' : status === 'skip' ? '✗' : '';
-        const editAttr = canEdit ? `onclick="toggleCell('${userId}','${habit.id}','${dateStr}',event)"` : '';
-        html += `<td class="${cls}" ${editAttr} title="${dateStr}"><span>${sym}</span></td>`;
+        html += `<td class="${cls}" onclick="toggleCell('${habit.id}','${ds}')" title="${ds}"><span>${sym}</span></td>`;
       }
 
-      // Summary cells
-      const pct = days > 0 ? Math.round(done / days * 100) : 0;
+      const pct = possible > 0 ? Math.round(done / possible * 100) : 0;
       html += `<td class="summary-cell">${done}</td><td class="summary-cell">${skip}</td><td class="summary-cell">${pct}%</td>`;
       html += `</tr>`;
     });
@@ -792,30 +938,30 @@ function renderUserView(userId) {
     <div class="legend-item"><div class="legend-swatch" style="background:var(--done-bg)"></div>Done</div>
     <div class="legend-item"><div class="legend-swatch" style="background:var(--skip-bg)"></div>Skipped</div>
     <div class="legend-item"><div class="legend-swatch" style="background:var(--wknd-bg)"></div>Weekend</div>
+    <div class="legend-item"><div class="legend-swatch" style="background:var(--mist);opacity:.5"></div>Not active</div>
   </div>`;
 
   document.getElementById('content').innerHTML = html;
 }
 
-// ──────────────────────────────────────────────
-// SUMMARY VIEW
-// ──────────────────────────────────────────────
+// ─────────────────────────────────────────
+// SUMMARY / LEADERBOARD (visible to all)
+// ─────────────────────────────────────────
 function renderSummary() {
-  const y = state.currentYear;
+  const y   = S.currentYear;
+  const uid = S.authUser.id;
 
-  // Compute year totals per user
-  const userTotals = state.profiles.map((p, i) => {
-    const habits = state.habits[p.id] || [];
+  const userTotals = S.profiles.map((p, i) => {
     let total = 0;
-    habits.forEach(h => {
-      const logsByHabit = (state.logs[p.id] || {})[h.id] || {};
-      total += Object.values(logsByHabit).filter(v => v === 'done').length;
+    (S.habits[p.id] || []).forEach(h => {
+      const lb = (S.logs[p.id] || {})[h.id] || {};
+      total += Object.values(lb).filter(v => v === 'done').length;
     });
-    return { profile: p, total, color: p.color || USER_COLORS[i], fill: p.fill || USER_FILLS[i] };
+    return { profile: p, total };
   }).sort((a, b) => b.total - a.total);
 
   const totalAll = userTotals.reduce((s, u) => s + u.total, 0);
-  const maxScore = userTotals[0]?.total || 1;
+  const maxScore = Math.max(1, userTotals[0]?.total || 1);
 
   let html = '';
 
@@ -824,172 +970,207 @@ function renderSummary() {
     <div class="metric-card">
       <div class="mlabel">Total check-ins</div>
       <div class="mvalue">${totalAll}</div>
-      <div class="msub">across all users &amp; habits</div>
+      <div class="msub">all members · ${y}</div>
     </div>
     <div class="metric-card">
-      <div class="mlabel">Top member</div>
-      <div class="mvalue" style="font-size:1.4rem;padding-top:.3rem">${userTotals[0]?.profile.display_name || '—'}</div>
-      <div class="msub">${userTotals[0]?.total || 0} check-ins this year</div>
+      <div class="mlabel">Leading member</div>
+      <div class="mvalue" style="font-size:1.3rem;padding-top:.4rem">${userTotals[0]?.profile.display_name || '—'}</div>
+      <div class="msub">${userTotals[0]?.total || 0} check-ins</div>
     </div>
     <div class="metric-card">
       <div class="mlabel">Members</div>
-      <div class="mvalue">${state.profiles.length}</div>
-      <div class="msub">${Object.values(state.habits).flat().length} habits total</div>
-    </div>
-    <div class="metric-card">
-      <div class="mlabel">Current month</div>
-      <div class="mvalue" style="font-size:1.1rem;padding-top:.4rem">${MONTHS[state.currentMonth]}</div>
-      <div class="msub">${y}</div>
+      <div class="mvalue">${S.profiles.length}</div>
+      <div class="msub">${Object.values(S.habits).flat().length} habits total</div>
     </div>
   </div>`;
 
   // Leaderboard
   html += `<div class="leaderboard">
     <div class="leaderboard-header">🏆 Leaderboard · ${y}</div>`;
+
   userTotals.forEach((u, i) => {
-    const pct = Math.round(u.total / maxScore * 100);
+    const pct    = Math.round(u.total / maxScore * 100);
     const medals = ['🥇','🥈','🥉'];
-    html += `<div class="lb-row">
+    const isMe   = u.profile.id === uid;
+    const idx    = S.profiles.findIndex(p => p.id === u.profile.id);
+    const color  = USER_COLORS[idx % USER_COLORS.length];
+    const fill   = USER_FILLS[idx % USER_FILLS.length];
+
+    html += `<div class="lb-row ${isMe ? 'is-me' : ''}">
       <div class="lb-rank">${medals[i] || (i+1)}</div>
-      <div class="nav-avatar" style="background:${u.fill};color:${u.color};width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;flex-shrink:0">${(u.profile.display_name||'U').slice(0,2).toUpperCase()}</div>
-      <div class="lb-name">${escHtml(u.profile.display_name || u.profile.email)}</div>
-      <div class="lb-bar-wrap"><div class="lb-bar" style="width:${pct}%;background:${u.color}"></div></div>
+      <div class="nav-avatar" style="background:${fill};color:${color};width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;flex-shrink:0">
+        ${(u.profile.display_name||u.profile.email||'U').slice(0,2).toUpperCase()}
+      </div>
+      <div class="lb-name">${escHtml(u.profile.display_name || u.profile.email)}${isMe ? ' <span style="font-size:.7rem;color:var(--ink3)">(you)</span>' : ''}</div>
+      <div class="lb-bar-wrap"><div class="lb-bar" style="width:${pct}%;background:${color}"></div></div>
       <div class="lb-score">${u.total}</div>
     </div>`;
   });
   html += `</div>`;
 
   // Monthly breakdown table
-  html += `<div style="overflow-x:auto"><table class="summary-table">
+  html += `<div class="summary-table-wrap"><table class="summary-table">
     <thead><tr>
-      <th style="text-align:left">Habit</th>
       <th style="text-align:left">Member</th>
-      ${MONTHS.map(m => `<th>${m.slice(0,3)}</th>`).join('')}
+      ${MONTHS_SHORT.map(m => `<th>${m}</th>`).join('')}
       <th>Year</th>
     </tr></thead><tbody>`;
 
-  const allHabits = Object.values(state.habits).flat();
-  const habitsByName = {};
-  allHabits.forEach(h => {
-    if (!habitsByName[h.name]) habitsByName[h.name] = [];
-    habitsByName[h.name].push(h);
-  });
-
-  Object.entries(habitsByName).forEach(([hName, hList]) => {
-    hList.forEach((h, hi) => {
-      const profile = state.profiles.find(p => p.id === h.user_id);
-      if (!profile) return;
-      const logsByHabit = (state.logs[h.user_id] || {})[h.id] || {};
-      const monthTotals = MONTHS.map((_, mi) => {
+  S.profiles.forEach((p, i) => {
+    const monthTotals = MONTHS.map((_, mi) => {
+      let c = 0;
+      (S.habits[p.id] || []).forEach(h => {
+        const lb = (S.logs[p.id] || {})[h.id] || {};
         const prefix = `${y}-${String(mi+1).padStart(2,'0')}`;
-        return Object.entries(logsByHabit).filter(([d, v]) => d.startsWith(prefix) && v === 'done').length;
+        c += Object.entries(lb).filter(([d, v]) => d.startsWith(prefix) && v === 'done').length;
       });
-      const yearTotal = monthTotals.reduce((s, v) => s + v, 0);
-      html += `<tr>
-        ${hi === 0 ? `<td class="habit-col" rowspan="${hList.length}" style="vertical-align:middle;font-weight:500;color:var(--ink)">${escHtml(hName)}</td>` : ''}
-        <td class="name-col">${escHtml(profile.display_name || profile.email)}</td>
-        ${monthTotals.map(v => `<td>${v || '—'}</td>`).join('')}
-        <td style="font-weight:500;color:${profile.color}">${yearTotal}</td>
-      </tr>`;
+      return c;
     });
+    const yearTotal = monthTotals.reduce((s, v) => s + v, 0);
+    const color = USER_COLORS[i % USER_COLORS.length];
+    const isMe  = p.id === uid;
+
+    html += `<tr ${isMe ? 'style="background:rgba(43,92,230,.03)"' : ''}>
+      <td class="name-col">${escHtml(p.display_name || p.email)}${isMe ? ' <span style="font-size:.7rem;color:var(--ink3)">(you)</span>' : ''}</td>
+      ${monthTotals.map(v => `<td>${v || '—'}</td>`).join('')}
+      <td style="font-weight:600;color:${color}">${yearTotal}</td>
+    </tr>`;
   });
 
   html += `</tbody></table></div>`;
-
   document.getElementById('content').innerHTML = html;
 }
 
-// ──────────────────────────────────────────────
-// CELL TOGGLE
-// ──────────────────────────────────────────────
-async function toggleCell(userId, habitId, dateStr, e) {
-  if (!state.logs[userId]) state.logs[userId] = {};
-  if (!state.logs[userId][habitId]) state.logs[userId][habitId] = {};
+// ─────────────────────────────────────────
+// CELL TOGGLE — cycles empty → done → skip → empty
+// ─────────────────────────────────────────
+async function toggleCell(habitId, ds) {
+  const uid = S.authUser.id;
+  if (!S.logs[uid]) S.logs[uid] = {};
+  if (!S.logs[uid][habitId]) S.logs[uid][habitId] = {};
 
-  const current = state.logs[userId][habitId][dateStr];
-  let newStatus;
-
-  if (e.shiftKey) {
-    newStatus = current === 'skip' ? null : 'skip';
-  } else {
-    newStatus = current === 'done' ? null : 'done';
-  }
+  const current = S.logs[uid][habitId][ds];
+  // Cycle: null/undefined → done → skip → null
+  const next = !current ? 'done' : current === 'done' ? 'skip' : null;
 
   // Optimistic update
-  if (newStatus) {
-    state.logs[userId][habitId][dateStr] = newStatus;
+  if (next) {
+    S.logs[uid][habitId][ds] = next;
   } else {
-    delete state.logs[userId][habitId][dateStr];
+    delete S.logs[uid][habitId][ds];
   }
 
-  renderUserView(userId);
+  // Re-render current view
+  const m = parseInt(S.currentView.split(':')[1]);
+  renderMonthView(m);
 
-  // Persist
-  if (newStatus) {
-    const { error } = await sb.from('habit_logs').upsert({
-      user_id: userId, habit_id: habitId, log_date: dateStr, status: newStatus
-    }, { onConflict: 'habit_id,log_date' });
-    if (error) { showToast('Failed to save. Try again.'); return; }
+  // Persist to Supabase
+  if (next) {
+    const { error } = await sb.from('habit_logs').upsert(
+      { user_id: uid, habit_id: habitId, log_date: ds, status: next },
+      { onConflict: 'habit_id,log_date' }
+    );
+    if (error) showToast('Failed to save. Try again.');
   } else {
     const { error } = await sb.from('habit_logs').delete()
-      .eq('habit_id', habitId).eq('log_date', dateStr).eq('user_id', userId);
-    if (error) { showToast('Failed to clear. Try again.'); return; }
+      .eq('habit_id', habitId).eq('log_date', ds).eq('user_id', uid);
+    if (error) showToast('Failed to clear. Try again.');
   }
 }
 
-// ──────────────────────────────────────────────
-// ADD HABIT
-// ──────────────────────────────────────────────
-function openAddHabit(userId) {
-  openModal('Add habit', 'Enter a name for this habit', 'Habit name…', 'Add', async (name) => {
-    const sortOrder = (state.habits[userId] || []).length;
+// ─────────────────────────────────────────
+// ADD / DELETE HABIT
+// ─────────────────────────────────────────
+function openAddHabit() {
+  openModal('Add habit', 'Name a new habit to track', 'e.g. Morning run', 'Add', async (name) => {
     const { data, error } = await sb.from('habits').insert({
-      user_id: userId, name, sort_order: sortOrder
+      user_id: S.authUser.id,
+      name,
+      sort_order: (S.habits[S.authUser.id] || []).length,
     }).select().single();
 
     if (error) { showToast('Could not add habit.'); return; }
 
-    if (!state.habits[userId]) state.habits[userId] = [];
-    state.habits[userId].push(data);
+    if (!S.habits[S.authUser.id]) S.habits[S.authUser.id] = [];
+    S.habits[S.authUser.id].push(data);
     closeModal();
-    renderUserView(userId);
+    const m = parseInt(S.currentView.split(':')[1]);
+    renderMonthView(m);
     showToast('Habit added!');
   });
 }
 
-async function deleteHabit(userId, habitId) {
-  if (!confirm('Remove this habit and all its data?')) return;
-
-  const { error } = await sb.from('habits').delete().eq('id', habitId).eq('user_id', userId);
+async function deleteHabit(habitId) {
+  if (!confirm('Remove this habit and all its tracking data?')) return;
+  const { error } = await sb.from('habits').delete()
+    .eq('id', habitId).eq('user_id', S.authUser.id);
   if (error) { showToast('Could not delete habit.'); return; }
 
-  state.habits[userId] = (state.habits[userId] || []).filter(h => h.id !== habitId);
-  if (state.logs[userId]) delete state.logs[userId][habitId];
-  renderUserView(userId);
+  S.habits[S.authUser.id] = (S.habits[S.authUser.id] || []).filter(h => h.id !== habitId);
+  if (S.logs[S.authUser.id]) delete S.logs[S.authUser.id][habitId];
+
+  const m = parseInt(S.currentView.split(':')[1]);
+  renderMonthView(m);
   showToast('Habit removed.');
 }
 
-// ──────────────────────────────────────────────
-// MODAL
-// ──────────────────────────────────────────────
-let _modalCallback = null;
+// ─────────────────────────────────────────
+// EDIT DISPLAY NAME
+// ─────────────────────────────────────────
+function openEditName() {
+  openModal(
+    'Edit your name',
+    'This is how you appear to other members',
+    'Your display name',
+    'Save',
+    async (name) => {
+      const { error } = await sb.from('profiles')
+        .update({ display_name: name })
+        .eq('id', S.authUser.id);
 
-function openModal(title, desc, placeholder, confirmLabel, callback) {
-  document.getElementById('modalTitle').textContent   = title;
-  document.getElementById('modalDesc').textContent    = desc;
-  document.getElementById('modalInput').placeholder  = placeholder;
-  document.getElementById('modalInput').value        = '';
+      if (error) { showToast('Could not update name.'); return; }
+
+      S.profile.display_name = name;
+      // Update in profiles array too
+      const idx = S.profiles.findIndex(p => p.id === S.authUser.id);
+      if (idx >= 0) S.profiles[idx].display_name = name;
+
+      updateSidebarUser();
+      closeModal();
+      showToast('Name updated!');
+
+      // Re-render current view to reflect name change
+      navigateTo(S.currentView);
+    },
+    S.profile?.display_name || ''
+  );
+}
+
+// ─────────────────────────────────────────
+// MODAL
+// ─────────────────────────────────────────
+let _modalCb = null;
+
+function openModal(title, desc, placeholder, confirmLabel, callback, prefill = '') {
+  document.getElementById('modalTitle').textContent    = title;
+  document.getElementById('modalDesc').textContent     = desc;
+  document.getElementById('modalInput').placeholder   = placeholder;
+  document.getElementById('modalInput').value         = prefill;
   document.getElementById('modalConfirm').textContent = confirmLabel;
-  _modalCallback = callback;
+  _modalCb = callback;
   document.getElementById('modal').classList.add('open');
-  setTimeout(() => document.getElementById('modalInput').focus(), 50);
+  setTimeout(() => {
+    const inp = document.getElementById('modalInput');
+    inp.focus();
+    inp.select();
+  }, 50);
 }
 
 document.getElementById('modalConfirm').addEventListener('click', () => {
   const val = document.getElementById('modalInput').value.trim();
-  if (!val || !_modalCallback) return;
+  if (!val || !_modalCb) return;
   document.getElementById('modalConfirm').disabled = true;
-  Promise.resolve(_modalCallback(val)).finally(() => {
+  Promise.resolve(_modalCb(val)).finally(() => {
     document.getElementById('modalConfirm').disabled = false;
   });
 });
@@ -1000,16 +1181,16 @@ document.getElementById('modalInput').addEventListener('keydown', e => {
 
 function closeModal() {
   document.getElementById('modal').classList.remove('open');
-  _modalCallback = null;
+  _modalCb = null;
 }
 
 document.getElementById('modal').addEventListener('click', e => {
   if (e.target === document.getElementById('modal')) closeModal();
 });
 
-// ──────────────────────────────────────────────
+// ─────────────────────────────────────────
 // TOAST
-// ──────────────────────────────────────────────
+// ─────────────────────────────────────────
 let _toastTimer;
 function showToast(msg) {
   const el = document.getElementById('toast');
@@ -1019,28 +1200,27 @@ function showToast(msg) {
   _toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
 }
 
-// ──────────────────────────────────────────────
+// ─────────────────────────────────────────
 // HELPERS
-// ──────────────────────────────────────────────
-function escHtml(str) {
-  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
+// ─────────────────────────────────────────
+function daysInMonth(m, y) { return new Date(y, m + 1, 0).getDate(); }
+function isWeekend(m, d, y) { const dow = new Date(y, m, d).getDay(); return dow === 0 || dow === 6; }
+function dateStr(y, m, d)   { return `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`; }
+function escHtml(s)         { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
-async function signOut() {
-  await sb.auth.signOut();
-  window.location.href = 'index.html';
-}
+async function signOut() { await sb.auth.signOut(); window.location.href = 'index.html'; }
+function toggleSidebar()  { document.getElementById('sidebar').classList.toggle('open'); }
 
-function toggleSidebar() {
-  document.getElementById('sidebar').classList.toggle('open');
-}
-
-// ──────────────────────────────────────────────
-// REALTIME (optional — live updates across tabs)
-// ──────────────────────────────────────────────
-sb.channel('habit_logs_changes')
-  .on('postgres_changes', { event: '*', schema: 'public', table: 'habit_logs' }, () => {
-    loadAllData();
+// ─────────────────────────────────────────
+// REALTIME
+// ─────────────────────────────────────────
+sb.channel('habit_logs_rt')
+  .on('postgres_changes', { event: '*', schema: 'public', table: 'habit_logs' }, payload => {
+    const userId = payload.new?.user_id || payload.old?.user_id;
+    if (!userId || userId === S.authUser.id) return; // own changes already applied optimistically
+    loadLogs(userId).then(() => {
+      if (S.currentView === 'summary') renderSummary();
+    });
   }).subscribe();
 
 // ── START ──
