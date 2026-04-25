@@ -5,7 +5,7 @@
 //  from: Supabase Dashboard → Settings → API
 // ─────────────────────────────────────────────────────────────
 
-const SUPABASE_URL      = 'https://mikrmkicllqwsnzqtgwf.supabase.co/rest/v1/';
+const SUPABASE_URL      = 'https://mikrmkicllqwsnzqtgwf.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1pa3Jta2ljbGxxd3NuenF0Z3dmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcwOTIzMDEsImV4cCI6MjA5MjY2ODMwMX0.2xjCvhiEE5uomIU_acdo6iRzklPRjdCXKxPWlly-45Q';
 
 const { createClient } = supabase;
