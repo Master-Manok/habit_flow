@@ -386,7 +386,7 @@
 
     const { error } = await sb.auth.signInWithOtp({
       email,
-      options: { emailRedirectTo: window.location.origin + '/app.html' }
+      options: { emailRedirectTo: 'https://master-manok.github.io/habit_flow/app.html' }
     });
 
     btn.disabled = false; btn.textContent = 'Send magic link';
