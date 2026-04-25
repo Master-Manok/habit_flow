@@ -747,21 +747,23 @@ function navigateTo(view) {
 
   } else if (view.startsWith('month:')) {
     const m = parseInt(view.split(':')[1]);
-    topLeft.innerHTML = `
-      <div class="breadcrumb">
-        <span class="breadcrumb-link" onclick="navigateTo('home')">My Year</span>
-        <span class="breadcrumb-sep">›</span>
-        <span style="color:var(--ink);font-weight:500">${MONTHS[m]} ${S.currentYear}</span>
-      </div>`;
-    actionsEl.innerHTML = `
-      <div class="month-nav">
-        <button onclick="shiftMonth(-1)">‹</button>
-        <button onclick="shiftMonth(1)">›</button>
-      </div>`;
+    topLeft.innerHTML = `<div style="display:flex;align-items:center;gap:8px">
+      <button onclick="navigateTo('home')" style="display:flex;align-items:center;gap:4px;padding:5px 11px;border-radius:8px;border:1px solid var(--border);background:var(--card);cursor:pointer;font-size:.82rem;color:var(--ink2);font-family:var(--font-sans)">← Home</button>
+      <span style="color:var(--ink3);font-size:.85rem">›</span>
+      <span style="color:var(--ink);font-weight:500;font-size:.95rem">${MONTHS[m]} ${S.currentYear}</span>
+    </div>`;
+    actionsEl.innerHTML = `<div class="month-nav">
+      <button onclick="shiftMonth(-1)" title="Previous month">‹</button>
+      <button onclick="shiftMonth(1)" title="Next month">›</button>
+    </div>`;
     renderMonthView(m);
 
   } else if (view === 'summary') {
-    topLeft.innerHTML = `<span class="page-title">Leaderboard</span>`;
+    topLeft.innerHTML = `<div style="display:flex;align-items:center;gap:8px">
+      <button onclick="navigateTo('home')" style="display:flex;align-items:center;gap:4px;padding:5px 11px;border-radius:8px;border:1px solid var(--border);background:var(--card);cursor:pointer;font-size:.82rem;color:var(--ink2);font-family:var(--font-sans)">← Home</button>
+      <span style="color:var(--ink3);font-size:.85rem">›</span>
+      <span style="color:var(--ink);font-weight:500;font-size:.95rem">Leaderboard</span>
+    </div>`;
     renderSummary();
   }
 }
@@ -1042,7 +1044,7 @@ function renderSummary() {
 }
 
 // ─────────────────────────────────────────
-// CELL TOGGLE — cycles empty → done → skip → empty
+// CELL TOGGLE — cycles empty → skip → done → empty
 // ─────────────────────────────────────────
 async function toggleCell(habitId, ds) {
   const uid = S.authUser.id;
@@ -1050,8 +1052,8 @@ async function toggleCell(habitId, ds) {
   if (!S.logs[uid][habitId]) S.logs[uid][habitId] = {};
 
   const current = S.logs[uid][habitId][ds];
-  // Cycle: null/undefined → done → skip → null
-  const next = !current ? 'done' : current === 'done' ? 'skip' : null;
+  // Cycle: null/undefined → skip → done → null
+  const next = !current ? 'skip' : current === 'skip' ? 'done' : null;
 
   // Optimistic update
   if (next) {
