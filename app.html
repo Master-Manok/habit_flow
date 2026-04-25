@@ -520,23 +520,141 @@ table.cal tr:hover .del-habit { opacity: 1; }
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ── RESPONSIVE ── */
-@media (max-width: 700px) {
-  :root { --sidebar: 0px; }
-  .sidebar { transform: translateX(-220px); width: 220px; }
-  .sidebar.open { transform: none; }
-  .main { margin-left: 0; }
-  .topbar { padding: .75rem 1rem; }
-  .content { padding: 1rem; }
-  .mobile-menu-btn { display: flex !important; }
-  .year-grid { grid-template-columns: repeat(2, 1fr); }
+/* ── MOBILE BOTTOM NAV ── */
+.bottom-nav {
+  display: none;
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--ink);
+  border-top: 1px solid rgba(255,255,255,.08);
+  z-index: 20;
+  padding: 6px 0 max(6px, env(safe-area-inset-bottom));
 }
 
+.bottom-nav-inner {
+  display: flex; justify-content: space-around; align-items: center;
+}
+
+.bn-item {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  padding: 6px 16px; cursor: pointer;
+  color: rgba(255,255,255,.45);
+  font-size: .65rem; font-weight: 500;
+  border: none; background: none;
+  font-family: var(--font-sans);
+  transition: color .15s;
+  min-width: 60px;
+}
+
+.bn-item .bn-icon { font-size: 1.25rem; line-height: 1; }
+.bn-item.active   { color: #fff; }
+.bn-item.active .bn-icon { filter: drop-shadow(0 0 4px rgba(43,92,230,.7)); }
+
+/* ── SIDEBAR OVERLAY (mobile) ── */
+.sidebar-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.45);
+  z-index: 9;
+}
+.sidebar-overlay.open { display: block; }
+
+/* ── RESPONSIVE — TABLET (≤900px) ── */
+@media (max-width: 900px) {
+  :root { --sidebar: 180px; }
+  .content { padding: 1.2rem 1.5rem 3rem; }
+  .year-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ── RESPONSIVE — MOBILE (≤600px) ── */
+@media (max-width: 600px) {
+  /* Sidebar becomes a slide-in drawer */
+  :root { --sidebar: 0px; }
+  .sidebar {
+    width: 240px;
+    transform: translateX(-240px);
+    z-index: 15;
+    transition: transform .25s cubic-bezier(.4,0,.2,1);
+  }
+  .sidebar.open { transform: translateX(0); }
+
+  /* Hide sidebar nav — bottom nav takes over */
+  .sidebar-section-label { display: none; }
+  .user-nav              { display: none; }
+
+  .main { margin-left: 0; }
+
+  /* Topbar */
+  .topbar {
+    padding: .6rem 1rem;
+    min-height: 50px;
+  }
+
+  /* Content — add bottom padding for bottom nav */
+  .content { padding: .75rem 1rem 5rem; }
+
+  /* Year grid — 2 columns on mobile */
+  .year-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+  /* Month cards — compact */
+  .month-card { padding: .85rem 1rem; }
+  .month-card-count { font-size: 1.4rem; }
+
+  /* Habit table cells — larger tap targets */
+  table.cal td.day-cell { height: 32px; min-width: 28px; }
+  table.cal th.day-th   { min-width: 28px; width: 28px; }
+
+  /* Leaderboard — hide bar on tiny screens, show score prominently */
+  .lb-bar-wrap { display: none; }
+  .lb-score    { font-size: .9rem; }
+
+  /* Summary table — scrollable */
+  .summary-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  /* Metric cards — 2 col */
+  .summary-cards { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .metric-card { padding: .9rem; }
+  .metric-card .mvalue { font-size: 1.6rem; }
+
+  /* Modal — bottom sheet on mobile */
+  .modal-overlay { align-items: flex-end; }
+  .modal-box {
+    width: 100%; max-width: 100%;
+    border-radius: 20px 20px 0 0;
+    padding: 1.5rem 1.25rem max(1.5rem, env(safe-area-inset-bottom));
+  }
+
+  /* Toast — above bottom nav */
+  .toast { bottom: 5rem; right: 1rem; left: 1rem; text-align: center; }
+
+  /* Show bottom nav */
+  .bottom-nav { display: block; }
+
+  /* Legend — wrap */
+  .legend { flex-wrap: wrap; gap: 10px; }
+
+  /* Habits toolbar hint text — hide on tiny screens */
+  .habits-toolbar-left { display: none; }
+}
+
+/* ── TOUCH DEVICES — remove hover effects that feel wrong ── */
+@media (hover: none) {
+  table.cal td.day-cell:hover { filter: none; }
+  .month-card:hover { transform: none; box-shadow: none; }
+  .month-card:active { transform: scale(.97); border-color: var(--accent); }
+  table.cal td.day-cell:active { filter: brightness(.88); }
+}
+
+/* ── MOBILE MENU BTN — only shown when sidebar is drawer ── */
 .mobile-menu-btn {
   display: none; align-items: center; justify-content: center;
-  width: 34px; height: 34px; border: 1px solid var(--border);
-  border-radius: 7px; background: var(--card);
-  cursor: pointer; margin-right: .5rem; font-size: 1rem;
+  width: 36px; height: 36px; border: 1px solid var(--border);
+  border-radius: 8px; background: var(--card);
+  cursor: pointer; margin-right: .25rem; font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .mobile-menu-btn { display: flex; }
 }
 </style>
 </head>
@@ -600,6 +718,31 @@ table.cal tr:hover .del-habit { opacity: 1; }
 </div>
 
 <div class="toast" id="toast"></div>
+
+<!-- ── Mobile sidebar overlay ── -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+<!-- ── Mobile bottom navigation ── -->
+<nav class="bottom-nav" id="bottomNav">
+  <div class="bottom-nav-inner">
+    <button class="bn-item" id="bn-home" onclick="navigateTo('home')">
+      <span class="bn-icon">🏠</span>
+      My Year
+    </button>
+    <button class="bn-item" id="bn-summary" onclick="navigateTo('summary')">
+      <span class="bn-icon">🏆</span>
+      Leaderboard
+    </button>
+    <button class="bn-item" id="bn-me" onclick="openEditName()">
+      <span class="bn-icon">✏️</span>
+      My Name
+    </button>
+    <button class="bn-item" id="bn-menu" onclick="toggleSidebar()">
+      <span class="bn-icon">☰</span>
+      More
+    </button>
+  </div>
+</nav>
 
 <script>
 // ─────────────────────────────────────────
@@ -731,6 +874,8 @@ function renderSidebar() {
 function navigateTo(view) {
   S.currentView = view;
   renderSidebar();
+  updateBottomNav(view);
+  closeSidebar();
 
   const actionsEl = document.getElementById('topbarActions');
   const topLeft   = document.getElementById('topbarLeft');
@@ -1209,7 +1354,24 @@ function dateStr(y, m, d)   { return `${y}-${String(m+1).padStart(2,'0')}-${Stri
 function escHtml(s)         { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 async function signOut() { await sb.auth.signOut(); window.location.href = 'index.html'; }
-function toggleSidebar()  { document.getElementById('sidebar').classList.toggle('open'); }
+
+function toggleSidebar() {
+  const sidebar  = document.getElementById('sidebar');
+  const overlay  = document.getElementById('sidebarOverlay');
+  const isOpen   = sidebar.classList.toggle('open');
+  overlay.classList.toggle('open', isOpen);
+}
+
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('open');
+}
+
+function updateBottomNav(view) {
+  document.querySelectorAll('.bn-item').forEach(el => el.classList.remove('active'));
+  if (view === 'home')    document.getElementById('bn-home')?.classList.add('active');
+  if (view === 'summary') document.getElementById('bn-summary')?.classList.add('active');
+}
 
 // ─────────────────────────────────────────
 // REALTIME
